@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlassUI Pro | Advanced Glassmorphism CSS Generator</title> 
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="global-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">✨</span>
+                <span class="logo-text">GlassUI</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="tutorials.html">Tutorials</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <a href="#" class="primary-btn" title="Authentication coming soon after deployment!" onclick="return false;" style="opacity: 0.95; cursor: not-allowed;">Sign In</a>
+                <a href="pricing.html" class="nav-pro-btn">Get PRO</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="app-container">
+        
+        <header class="app-header">
+            <h1>Craft Beautiful Glass Interfaces.</h1>
+            <p>Design your perfect glassmorphic element in real-time. Change shapes, tint colors, and test against different backgrounds.</p>
+        </header>
+
+        <section class="workspace">
+            
+            <div class="left-column">
+                
+                <div id="canvas-area" class="canvas-area bg-mesh">
+                    <div id="modal-overlay" class="modal-overlay"></div>
+                    
+                    <div class="glass-element shape-card" id="previewElement">
+                        <div style="width: 100%; text-align: left; font-size: 0.85rem; letter-spacing: 2px; font-weight: 600; opacity: 0.8;">SUPERBANK</div>
+                        <div style="width: 100%; text-align: left; font-size: 1.6rem; letter-spacing: 4px; font-family: monospace; margin-top: 30px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                            1234 5678 1234 5678
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; width: 100%;">
+                            <div style="text-align: left;">
+                                <div style="font-size: 0.5rem; opacity: 0.6; letter-spacing: 1px; margin-bottom: 2px;">VALID THRU</div>
+                                <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 8px;">12/29</div>
+                                <div style="font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase;">Michal Malewicz</div>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.4); margin-right: -18px; z-index: 2;"></div>
+                                <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.15); z-index: 1;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="output-section">
+                    <div class="code-grid">
+                        <div class="code-col">
+                            <label style="color: var(--accent-color); font-size: 0.85rem; font-weight: 600;">HTML</label>
+                            <textarea id="html-output" readonly aria-label="Generated HTML Code"></textarea>
+                        </div>
+                        <div class="code-col">
+                            <label style="color: var(--accent-color); font-size: 0.85rem; font-weight: 600;">CSS</label>
+                            <textarea id="css-output" readonly aria-label="Generated CSS Code"></textarea>
+                        </div>
+                    </div>
+                    <button id="copy-btn" class="primary-btn">Copy Both to Clipboard</button>
+                </div>
+            </div> 
+
+            <aside class="control-panel">
+                
+                <div class="control-row">
+                    <div class="control-group half-width">
+                        <label for="element-select">Preview Element</label>
+                        <select id="element-select" class="dropdown">
+                            <option value="shape-card">Card</option>
+                            <option value="shape-button">Button</option>
+                            <option value="shape-navbar">Navigation Bar</option>
+                            <option value="shape-modal">Popup Modal</option>
+                            <option value="shape-input">Input Field</option>
+                            <option value="shape-sidebar">Sidebar Panel</option>
+                            <option value="shape-tooltip">Small Tooltip</option>
+                            <option value="shape-avatar">Profile Avatar</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group" id="custom-color-container" style="display: none; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                        <label for="page-bg-color" style="margin: 0;">Custom Canvas</label>
+                        <input type="color" id="page-bg-color" value="#4f46e5" class="color-swatch">
+                    </div>
+
+                    <div class="control-group half-width">
+                        <label for="bg-select">Test Background</label>
+                        <select id="bg-select" class="dropdown">
+                            <option value="bg-mesh">Vibrant Mesh</option>
+                            <option value="bg-dark">Dark Space</option>
+                            <option value="bg-ocean">Deep Ocean</option>
+                            <option value="bg-custom">Custom Solid Color</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <label for="color-picker" style="margin: 0;">Glass Tint Color</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span id="color-val" class="val-badge">#ffffff</span>
+                        <input type="color" id="color-picker" value="#ffffff" class="color-swatch">
+                    </div>
+                </div>
+
+                <div class="control-group" id="hover-control" style="display: none; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <label for="hover-color" style="margin: 0;">Button Hover Tint</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span id="hover-color-val" class="val-badge">#38bdf8</span>
+                        <input type="color" id="hover-color" value="#38bdf8" class="color-swatch">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="blur-slider">Frosted Blur <span id="blur-val" class="val-badge">10px</span></label>
+                    <input type="range" id="blur-slider" min="0" max="40" value="10">
+                </div>
+
+                <div class="control-group">
+                    <label for="opacity-slider">Background Opacity <span id="opacity-val" class="val-badge">15%</span></label>
+                    <input type="range" id="opacity-slider" min="0" max="100" value="15">
+                </div>
+
+                <div class="control-group" id="radius-control">
+                    <label for="radius-slider">Corner Roundness <span id="radius-val" class="val-badge">16px</span></label>
+                    <input type="range" id="radius-slider" min="0" max="150" value="16">
+                </div>
+
+                <div class="control-group">
+                    <label for="border-slider">Border Thickness <span id="border-val" class="val-badge">1px</span></label>
+                    <input type="range" id="border-slider" min="0" max="10" value="1">
+                </div>
+
+                <div class="control-group">
+                    <label for="border-opacity-slider">Border Opacity <span id="border-opacity-val" class="val-badge">20%</span></label>
+                    <input type="range" id="border-opacity-slider" min="0" max="100" value="20">
+                </div>
+
+                <div class="control-group">
+                    <label for="shadow-slider">Drop Shadow Depth <span id="shadow-val" class="val-badge">30px</span></label>
+                    <input type="range" id="shadow-slider" min="0" max="100" value="30">
+                </div>
+            </aside>
+        </section>
+
+        <article class="educational-content">
+            <div class="content-block">
+                <h2>What is Glassmorphism?</h2>
+                <p>Glassmorphism is a popular UI design trend that creates the illusion of frosted glass. By combining semi-transparent backgrounds, subtle borders, and background blurs, developers can create interface elements that appear to float above the canvas. It is widely used in modern web applications, dashboards, and mobile operating systems.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>How to Use This Generator</h2>
+                <ol class="steps-list">
+                    <li><strong>Select your shape:</strong> Choose the HTML element you are building (like a Navbar or Modal) from the dropdown.</li>
+                    <li><strong>Tune the effect:</strong> Adjust the Frosted Blur and Background Opacity until you achieve the perfect glass look.</li>
+                    <li><strong>Test contrast:</strong> Use the Custom Canvas Background picker to test your glass element against your actual website's background color.</li>
+                    <li><strong>Copy the CSS:</strong> Click the copy button and paste the generated <code>backdrop-filter</code> code directly into your stylesheet.</li>
+                </ol>
+            </div>
+
+            <div class="content-block tip-box">
+                <h3>💡 Pro-Tip for Browser Support</h3>
+                <p>While modern browsers support the standard <code>backdrop-filter</code> property, some versions of Safari still require the <code>-webkit-</code> prefix. Our generator automatically includes this prefix in your output code to ensure your glass effects work flawlessly across all Apple devices.</p>
+            </div>
+        </article>
+
+        <footer class="mega-footer">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-col brand-col">
+                        <div class="logo">
+                            <span class="logo-icon">✨</span>
+                            <span class="logo-text">GlassUI</span>
+                        </div>
+                        <p>The ultimate toolkit for crafting modern, glassmorphic web interfaces in seconds. Built by developers, for designers.</p>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Products</h4>
+                        <ul>
+                            <li><a href="#">CSS Generator</a></li>
+                            <li><a href="templates.html">Pro Templates</a></li>
+                            <li><a href="coming-soon.html">Figma Plugin</a></li>
+                            <li><a href="pricing.html">Pricing</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="guide.html">Glassmorphism Guide</a></li>
+                            <li><a href="tutorials.html">CSS Tutorials</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="forum.html">Community Forum</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact Support</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2026 GlassUI Pro. All rights reserved.</p>
+                    <div class="social-links">
+                        <a href="https://twitter.com/glassuipro" target="_blank">Twitter</a>
+                        <a href="https://github.com/glassuipro" target="_blank">GitHub</a>
+                        <a href="https://dribbble.com/glassuipro" target="_blank">Dribbble</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

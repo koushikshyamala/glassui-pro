@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support - GlassUI Pro</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="app-container centered-page">
+        <div class="glass-card auth-card">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <h2>Contact Us</h2>
+            <p style="color: #cbd5e1; font-size: 0.9rem;">We are here to help you build better interfaces.</p>
+            
+            <form action="https://formspree.io/f/mykvrnrz" method="POST" class="auth-form">
+    
+                <div class="form-group">
+                    <label>Your Email</label>
+                    <input type="email" name="email" class="glass-input" placeholder="hello@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>How can we help?</label>
+                    <textarea name="message" class="glass-input" style="height: 100px; resize: none; background: rgba(0,0,0,0.2); color: white;" placeholder="Describe your issue or feature request..." required></textarea>
+                </div>
+                
+                <button type="submit" class="primary-btn">Send Message</button>
+                
+            </form>
+        </div>
+    </main>
+
+    </body>
+    <script>
+        const form = document.querySelector('.auth-form');
+        const button = form.querySelector('button');
+
+        form.addEventListener('submit', async (e) => {
+            // 1. THIS IS THE MAGIC LINE: It stops the browser from leaving your page!
+            e.preventDefault(); 
+            
+            // 2. Visual feedback: Let the user know it's working
+            const originalText = button.textContent;
+            button.textContent = "Sending...";
+            button.style.opacity = "0.8";
+
+            const formData = new FormData(form);
+
+            try {
+                // 3. Send the data silently in the background
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        // This tells Formspree: "Do NOT redirect, just send me a success code!"
+                        'Accept': 'application/json' 
+                    }
+                });
+
+                if (response.ok) {
+                    // 4. Success! Turn button green and clear the form
+                    form.reset();
+                    button.textContent = "✨ Message Sent!";
+                    button.style.background = "#34d399"; 
+                    button.style.color = "#0f172a";
+                    button.style.opacity = "1";
+                } else {
+                    button.textContent = "❌ Error Sending";
+                }
+            } catch (error) {
+                button.textContent = "❌ Network Error";
+            }
+
+            // 5. Reset the button back to normal after 3 seconds
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = "";
+                button.style.color = "";
+                button.style.opacity = "1";
+            }, 3000);
+        });
+    </script>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlassUI - Log In</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Only the 3D flip mechanics go here. 
+           Colors, glass, and buttons stay in your style.css! */
+        .scene {
+            width: 100%;
+            max-width: 400px;
+            perspective: 1000px; /* Gives the 3D depth */
+        }
+        .card {
+            width: 100%;
+            position: relative;
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            width: 100%;
+            backface-visibility: hidden; /* Hides the back when flipped */
+        }
+        .card-face-front {
+            position: relative;
+            z-index: 2;
+        }
+        .card-face-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotateY(180deg); /* Pre-flipped so it faces away */
+        }
+        .toggle-link {
+            cursor: pointer;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+        .message-box {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            min-height: 20px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <main class="app-container centered-page">
+        <div class="scene">
+            <div class="card" id="auth-card">
+                
+                <div class="glass-card auth-card card-face card-face-front">
+                    <h2>Welcome Back</h2>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 25px;">Log in to save your GlassUI designs.</p>
+                    
+                    <form class="auth-form" id="login-form">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="login-email" class="glass-input" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="login-password" class="glass-input" placeholder="••••••••" required>
+                        </div>
+                        <div style="text-align: right; margin-top: -10px; margin-bottom: 20px;">
+                            <span class="toggle-link" style="font-size: 0.85rem;" onclick="alert('Password reset backend coming soon!')">Forgot Password?</span>
+                        </div>
+                        
+                        <button type="submit" class="primary-btn">Log In</button>
+
+                        <div style="display: flex; align-items: center; margin: 25px 0;">
+                            <hr style="flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <span style="padding: 0 15px; font-size: 0.8rem; color: #94a3b8; font-weight: 600; letter-spacing: 1px;">OR</span>
+                            <hr style="flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.1);">
+                        </div>
+
+                        <button type="button" class="glass-input" style="width: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.3s;" onclick="alert('Google Auth setup coming soon!')" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.2)'">
+                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 20px; margin-right: 12px;">
+                            <span style="font-weight: 600; font-size: 0.95rem;">Continue with Google</span>
+                        </button>
+                    </form>
+                    
+                    <div class="message-box" id="login-message" style="color: #ef4444;"></div>
+                    
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 25px; text-align: center;">
+                        Don't have an account? <span class="toggle-link" onclick="flipCard()">Create Account</span>
+                    </p>
+                </div>
+
+                <div class="glass-card auth-card card-face card-face-back">
+                    <h2>Create Account</h2>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 25px;">Optional: Permanently save your generated CSS.</p>
+                    
+                    <form class="auth-form" id="register-form">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="reg-username" class="glass-input" placeholder="UI_Master" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="reg-email" class="glass-input" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="reg-password" class="glass-input" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="primary-btn">Create Account</button>
+                    </form>
+
+                    <div class="message-box" id="reg-message" style="color: #ef4444;"></div>
+
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 25px; text-align: center;">
+                        Already have one? <span class="toggle-link" onclick="flipCard()">Log In</span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 1. 3D Flip Mechanics
+        function flipCard() {
+            document.getElementById('auth-card').classList.toggle('is-flipped');
+            document.getElementById('login-message').innerText = '';
+            document.getElementById('reg-message').innerText = '';
+        }
+
+        // 2. Handle Create Account
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msgBox = document.getElementById('reg-message');
+            msgBox.style.color = '#ef4444'; 
+            msgBox.innerText = 'Creating account...';
+
+            const data = {
+                username: document.getElementById('reg-username').value,
+                email: document.getElementById('reg-email').value,
+                password: document.getElementById('reg-password').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    msgBox.style.color = '#34d399'; 
+                    msgBox.innerText = 'Success! Flipping to Log In...';
+                    setTimeout(() => {
+                        flipCard(); 
+                        document.getElementById('login-email').value = data.email; 
+                    }, 1500);
+                } else {
+                    msgBox.innerText = result.message; 
+                }
+            } catch (error) {
+                msgBox.innerText = 'Server error. Is Python running?';
+            }
+        });
+
+        // 3. Handle Log In
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msgBox = document.getElementById('login-message');
+            msgBox.style.color = '#ef4444';
+            msgBox.innerText = 'Authenticating...';
+
+            const data = {
+                email: document.getElementById('login-email').value,
+                password: document.getElementById('login-password').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    msgBox.style.color = '#34d399';
+                    msgBox.innerText = 'Logged in successfully! Redirecting...';
+                    
+                    localStorage.setItem('glassui_user', JSON.stringify(result.user));
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index.html'; 
+                    }, 1000);
+                } else {
+                    msgBox.innerText = result.message; 
+                }
+            } catch (error) {
+                msgBox.innerText = 'Server error. Is Python running?';
+            }
+        });
+    </script>
+</body>
+</html>
