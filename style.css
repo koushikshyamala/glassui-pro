@@ -387,36 +387,56 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); cursor: po
 }
 
 /* =========================================
-   📱 MOBILE RESPONSIVE FIXES (Phase 1.5)
+   📱 PERFECTED MOBILE RESPONSIVE FIXES
    ========================================= */
 @media (max-width: 768px) {
-    /* 1. Put sliders on top, visual preview on bottom */
+    /* Break container boundaries to allow custom ordering */
     .workspace {
         display: flex !important;
-        flex-direction: column-reverse !important;
-        gap: 30px; 
+        flex-direction: column !important;
+        gap: 20px !important;
     }
 
-    /* 2. Stop dropdown text from squishing */
+    .left-column {
+        display: contents !important; /* The secret sauce to ungroup preview and code */
+    }
+
+    /* 1. Preview Card goes to the absolute top */
+    #canvas-area {
+        order: 1 !important;
+    }
+
+    /* 2. Sliders/Control panel goes right under the preview */
+    .control-panel {
+        order: 2 !important;
+        padding: 15px !important;
+    }
+
+    /* 3. HTML/CSS code blocks go to the bottom */
+    .output-section {
+        order: 3 !important;
+    }
+
+    /* Fix dropdown stacking so text does not compress */
     .control-row {
         display: flex !important;
         flex-direction: column !important;
-        gap: 15px;
+        gap: 12px !important;
     }
     .control-group.half-width {
         width: 100% !important;
     }
 
-    /* 3. Stop text from clipping on the right edge */
+    /* Fix text clipping on the sides for educational descriptions */
     .educational-content, .app-header {
-        padding-left: 15px;
-        padding-right: 15px;
-        box-sizing: border-box;
-        overflow-wrap: break-word;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box !important;
+        overflow-wrap: break-word !important;
     }
 
-    /* 4. Make sliders thicker for human thumbs */
+    /* Thicker touch targets for phone sliders */
     input[type="range"] {
-        height: 24px; 
+        height: 24px !important;
     }
 }
