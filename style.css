@@ -385,3 +385,38 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); cursor: po
 @media (max-width: 550px) {
     .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
 }
+
+/* =========================================
+   📱 MOBILE RESPONSIVE FIXES (Phase 1.5)
+   ========================================= */
+@media (max-width: 768px) {
+    /* 1. Put sliders on top, visual preview on bottom */
+    .workspace {
+        display: flex !important;
+        flex-direction: column-reverse !important;
+        gap: 30px; 
+    }
+
+    /* 2. Stop dropdown text from squishing */
+    .control-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px;
+    }
+    .control-group.half-width {
+        width: 100% !important;
+    }
+
+    /* 3. Stop text from clipping on the right edge */
+    .educational-content, .app-header {
+        padding-left: 15px;
+        padding-right: 15px;
+        box-sizing: border-box;
+        overflow-wrap: break-word;
+    }
+
+    /* 4. Make sliders thicker for human thumbs */
+    input[type="range"] {
+        height: 24px; 
+    }
+}
